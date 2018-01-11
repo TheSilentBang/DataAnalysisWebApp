@@ -1,0 +1,12 @@
+Variable,dataType,type
+TRANS_DATE,String,input
+DIA,double,input
+SPY,double,input
+QQQ,double,input
+GM,double,input
+MSFT,double,input
+R_DIA,double,computed
+R_SPY,double,computed
+R_QQQ,double,computed
+R_GM,double,computed
+R_MSFT,double,computed
