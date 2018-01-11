@@ -8,3 +8,8 @@ Technology Used: JAVA, JDBC, JSF, JSP, and XHTML
 • Descriptive and Regression analysis performed on user selected columns of the data set 
 
 • Visualizations created using time-series plot, scatter plot with a regression line, etc using JFreeChart
+
+How to view Java, JSP and JSF files:
+1. Download and install latest version of Ecplise for Java Developers EE
+2. Download war file with libraries
+3. Go to Files -> Import War
