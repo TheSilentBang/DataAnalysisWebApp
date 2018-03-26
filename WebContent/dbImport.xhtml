@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Data Import-Export</title>
+    <link rel="stylesheet" href="css/styleSheet.css" />
+</h:head>
+<h:body>
+    <div class="report">
+        <div id="container1">
+            <h2>Database Access</h2>
+            <p>IDS 517 &#160;&#160; S17G310</p>
+            <hr />
+            <a href="main.jsp" title="Home Page">Home</a> &#160; &#160; <a
+                href="logout.jsp" title="Logout">Logout</a>
+            <hr />
+            <br />
+        </div>
+        </div>
+	<div id="container2" align="center">
+		<h:form enctype="multipart/form-data">
+			<h:panelGrid columns="2"
+				style="background-color: Beige;
+				border-bottom-style: solid;
+				border-top-style: solid;
+				border-left-style: solid;
+				border-right-style: solid">
+
+				<h:outputLabel value="select file to upload:" />
+				<t:inputFileUpload id="fileUpload" label="File to upload"
+					storage="default" value="#{fileImportBean.uploadedFile}" size="60" />
+
+				<h:outputLabel value="file label:" />
+				<h:inputText id="fileLabel" value="#{fileImportBean.fileLabel}"
+					size="60" />
+
+				<h:outputLabel value="dataset label:" />
+				<h:inputText id="datasetLabel"
+					value="#{fileImportBean.datasetLabel}" size="60" />
+
+				<h:outputLabel value="File format:" />
+				<h:selectOneMenu id="fileFormat"
+					value="#{fileImportBean.fileFormat}">
+					<f:selectItem itemValue="ExcelCSV" itemLabel="Excel CSV" />
+					<f:selectItem itemValue="Text" itemLabel="Text" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value="File Type:" />
+				<h:selectOneMenu id="fileType" value="#{fileImportBean.fileType}">
+				<f:selectItem itemValue="data" itemLabel="data" />
+					<f:selectItem itemValue="metadata" itemLabel="metadata" />
+					
+				</h:selectOneMenu>
+
+				<h:outputLabel value="Header Row:" />
+				<h:selectOneMenu id="headerRow"
+					value="#{fileImportBean.fileheaderRowFormat}">
+					<f:selectItem itemValue="Yes" itemLabel="Yes" />
+					<f:selectItem itemValue="No" itemLabel="No" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value=" " />
+				<h:commandButton id="upload"
+					action="#{fileImportBean.processFileUpload}" value="Submit" />
+
+			</h:panelGrid>
+				<h:outputText value="#{fileImportBean.fileImportInfoMsg}"
+							rendered="#{fileImportBean.fileImportInfoMsgFlag}"
+							style="font-weight:bold" />
+							<br/><br/>
+							<h:outputText value="#{fileImportBean.fileImportErrorMsg}"
+							rendered="#{fileImportBean.fileImportErrorMsgFlag}"
+							style="color:red; font-weight:bold" />
+							<br/><br/>
+							
+							<h:commandButton id="uploadWithRollBack" rendered="#{fileImportBean.fileImportErrorMsgFlag}"
+					action="#{fileImportBean.processFileUploadWithRollBack}" value="Upload with Invalid Data" />
+		</h:form>
+	</div>
+	<h:form enctype="multipart/form-data">
+		<div align="center">
+			<h4>File Export</h4>
+		</div>
+
+		<div align="center">
+			<h:commandButton id="submit"
+				action="#{fileImportBean.getTablesExport}"
+				value="List All the Tables" />
+		</div>
+		<br />
+
+		<div align="center">
+			<h:selectOneListbox id="selectOneCb"
+				style="width:200px; height:150px"
+				value="#{fileImportBean.selectedTable}" size="7">
+				<f:selectItems value="#{fileImportBean.tableList1}" />
+			</h:selectOneListbox>
+			<br /> <br />
+
+			<h:commandButton id="import" action="#{fileImportBean.exportToXML}"
+				value="Export as XML" />
+				<h:commandButton action="#{fileImportBean.exportCSV}"
+				value="Export as CSV" />
+
+		</div>
+		<br />
+	</h:form>
+	<div id="container3" align="center">
+		<h:form enctype="multipart/form-data">
+			<h:panelGrid columns="2"
+				style="background-color: Beige;
+				border-bottom-style: solid;
+				border-top-style: solid;
+				border-left-style: solid;
+				border-right-style: solid"
+				rendered="#{fileImportBean.fileImport}">
+
+				<h:outputLabel value="Number of records:" />
+				<h:outputText value="#{fileImportBean.numberRows}" />
+
+				<h:outputLabel value="File Label:" />
+				<h:outputText value="#{fileImportBean.fileLabel}" />
+
+				<h:outputLabel value="Dataset Label:" />
+				<h:outputText value="#{fileImportBean.datasetLabel}" />
+
+				<h:outputLabel value="File Type:" />
+				<h:outputText value="#{fileImportBean.fileType}" />
+
+				<h:outputLabel value="File Format:" />
+				<h:outputText value="#{fileImportBean.fileFormat}" />
+
+				<h:outputLabel value="Header Row:" />
+				<h:outputText value="#{fileImportBean.fileheaderRowFormat}" />
+
+				<h:outputLabel value="File Name:" />
+				<h:outputText value="#{fileImportBean.fileName}" />
+
+				<h:outputLabel value="File size" />
+				<h:outputText value="#{fileImportBean.fileSize}" />
+
+				<h:outputLabel value="File Content Type:" />
+				<h:outputText value="#{fileImportBean.fileContentType}" />
+
+				<h:outputLabel value="Temp File Path:" />
+				<h:outputText value="#{fileImportBean.filePath}" />
+
+				<h:outputLabel value="Temp File Name:" />
+				<h:outputText value="#{fileImportBean.tempFileName}" />
+
+				<h:outputLabel value="Faces Context:" />
+				<h:outputText value="#{fileImportBean.facesContext}" />
+
+			</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+</html>
